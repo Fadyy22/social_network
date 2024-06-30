@@ -2,6 +2,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const express = require('express');
 
+const mountRoutes = require('./routes');
+
 dotenv.config();
 
 const app = express();
@@ -9,9 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+mountRoutes(app);
+
 app.use('*', (req, res) => {
   res.status(404).json({
-    message: 'not found',
+    message: `Route ${req.originalUrl} not found`,
   });
 });
 
