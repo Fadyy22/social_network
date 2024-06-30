@@ -55,3 +55,13 @@ exports.updatePost = asyncHandler(async (req, res) => {
 
   res.status(200).json({ post });
 });
+
+exports.deletePost = asyncHandler(async (req, res) => {
+  await prisma.post.delete({
+    where: {
+      id: req.params.id,
+    },
+  });
+
+  res.status(204).end();
+});

@@ -4,11 +4,13 @@ const {
   createPost,
   getAllPosts,
   updatePost,
+  deletePost,
 } = require('../controllers/postController');
 
 const {
   createPostValidator,
   updatePostValidator,
+  deletePostValidator,
 } = require('../utils/validators/postValidator');
 
 const isAuth = require('../middlewares/authMiddleware');
@@ -22,6 +24,7 @@ router
 
 router
   .route('/:id')
-  .patch(isAuth, updatePostValidator, updatePost);
+  .patch(isAuth, updatePostValidator, updatePost)
+  .delete(isAuth, deletePostValidator, deletePost);
 
 module.exports = router;
