@@ -32,3 +32,26 @@ exports.getAllPosts = asyncHandler(async (_req, res) => {
 
   res.status(200).json({ posts });
 });
+
+exports.updatePost = asyncHandler(async (req, res) => {
+  const post = await prisma.post.update({
+    where: {
+      id: req.params.id,
+    },
+    data: req.body,
+    include: {
+      author: {
+        select: {
+          id: true,
+          profile_img: true,
+          firstName: true,
+          lastName: true,
+        }
+      }
+    }
+  });
+
+  delete post.authorId;
+
+  res.status(200).json({ post });
+});
