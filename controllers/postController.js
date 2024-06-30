@@ -11,3 +11,24 @@ exports.createPost = asyncHandler(async (req, res) => {
 
   res.status(201).json({ post });
 });
+
+exports.getAllPosts = asyncHandler(async (_req, res) => {
+  const posts = await prisma.post.findMany({
+    include: {
+      author: {
+        select: {
+          id: true,
+          profile_img: true,
+          firstName: true,
+          lastName: true,
+        }
+      }
+    }
+  });
+
+  posts.forEach(post => {
+    delete post.authorId;
+  });
+
+  res.status(200).json({ posts });
+});

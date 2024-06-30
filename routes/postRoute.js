@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   createPost,
+  getAllPosts,
 } = require('../controllers/postController');
 
 const {
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(isAuth, createPostValidator, createPost);
+  .post(isAuth, createPostValidator, createPost)
+  .get(getAllPosts);
 
 module.exports = router;
