@@ -32,14 +32,15 @@ model User {
 }
 
 model Post {
-  id        String       @id @default(uuid())
-  content   String
-  author    User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId  String
-  media     Post_Media[]
-  likes     Like[]
-  comments  Comment[]
-  createdAt DateTime     @default(now())
+  id         String       @id @default(uuid())
+  content    String
+  author     User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   String
+  likesCount Int          @default(0)
+  media      Post_Media[]
+  likes      Like[]
+  comments   Comment[]
+  createdAt  DateTime     @default(now())
 }
 
 model Post_Media {
