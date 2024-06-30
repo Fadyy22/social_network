@@ -6,7 +6,7 @@ const ApiError = require('../utils/apiError');
 
 const prisma = new PrismaClient();
 
-module.exports = asyncHandler(async (req, res, next) => {
+const isAuth = asyncHandler(async (req, res, next) => {
   let decodedToken;
 
   if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer')) {
@@ -33,3 +33,5 @@ module.exports = asyncHandler(async (req, res, next) => {
   req.user = user;
   next();
 });
+
+module.exports = isAuth;
