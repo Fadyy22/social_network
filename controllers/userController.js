@@ -14,8 +14,24 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
       lastName: true,
       profile_img: true,
       posts: true,
+      friends: {
+        select: {
+          id: true,
+        }
+      },
+      friendRequestsOf: {
+        select: {
+          id: true,
+        }
+      }
     }
   });
+
+  user.isFriend = user.friends.some(friend => friend.id === req.user.id);
+  user.isRequested = user.friendRequestsOf.some(request => request.id === req.user.id);
+
+  delete user.friends;
+  delete user.friendRequestsOf;
 
   res.status(200).json({ user });
 });

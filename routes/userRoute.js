@@ -17,7 +17,7 @@ const router = express.Router();
 
 router
   .route('/:id')
-  .get(getUserProfile);
+  .get(isAuth, getUserProfile);
 
 router.post('/:id/add', isAuth, addFriendValidator, addFriend);
 router.post('/:id/accept', isAuth, acceptFriendRequestValidator, acceptFriendRequest);
