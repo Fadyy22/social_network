@@ -76,21 +76,13 @@ exports.loginValidator = [
         },
       });
 
-      if (!user) {
+      if (!user || !(await bcrypt.compare(password, user.password))) {
         return req.customError = {
           message: 'Invalid email or password',
           statusCode: 401,
         };
-      } else {
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        if (!isMatch) {
-          return req.customError = {
-            message: 'Invalid email or password',
-            statusCode: 401,
-          };
-        }
       }
+
       req.user = user;
     }),
   customValidatorMiddleware,
