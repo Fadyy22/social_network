@@ -33,6 +33,46 @@ exports.getAllPosts = asyncHandler(async (_req, res) => {
   res.status(200).json({ posts });
 });
 
+exports.getPost = asyncHandler(async (req, res) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.id,
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          profile_img: true,
+        }
+      },
+      comments: {
+        select: {
+          id: true,
+          user: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              profile_img: true,
+            }
+          },
+          content: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        }
+      }
+    }
+  });
+
+  delete post.authorId;
+
+  res.status(200).json({ post });
+});
+
 exports.updatePost = asyncHandler(async (req, res) => {
   const post = await prisma.post.update({
     where: {
