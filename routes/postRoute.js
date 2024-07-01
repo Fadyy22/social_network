@@ -3,6 +3,7 @@ const express = require('express');
 const {
   createPost,
   getAllPosts,
+  getPost,
   updatePost,
   deletePost,
 } = require('../controllers/postController');
@@ -29,6 +30,7 @@ router
 
 router
   .route('/:id')
+  .get(getPost)
   .patch(isAuth, updatePostValidator, updatePost)
   .delete(isAuth, deletePostValidator, deletePost);
 
