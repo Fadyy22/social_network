@@ -13,11 +13,14 @@ const {
   deletePostValidator,
 } = require('../utils/validators/postValidator');
 
+const commentRouter = require('./commentRoute');
 const likeRouter = require('./likeRoute');
 
 const isAuth = require('../middlewares/authMiddleware');
 
 const router = express.Router();
+
+router.use('/:postId/comments', commentRouter);
 
 router
   .route('/')
@@ -32,6 +35,5 @@ router
 
 router.post('/:id/like', isAuth, likeRouter.like);
 router.delete('/:id/unlike', isAuth, likeRouter.unlike);
-
 
 module.exports = router;
