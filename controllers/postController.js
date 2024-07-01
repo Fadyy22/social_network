@@ -12,7 +12,7 @@ exports.createPost = asyncHandler(async (req, res) => {
   res.status(201).json({ post });
 });
 
-exports.getAllPosts = asyncHandler(async (_req, res) => {
+exports.getAllPosts = asyncHandler(async (req, res) => {
   const posts = await prisma.post.findMany({
     include: {
       author: {
@@ -22,12 +22,23 @@ exports.getAllPosts = asyncHandler(async (_req, res) => {
           firstName: true,
           lastName: true,
         }
+      },
+      likes: {
+        select: {
+          userId: true,
+        }
       }
     },
     orderBy: {
       createdAt: 'desc',
     }
   });
+
+  posts.forEach(post => {
+    post.isLiked = post.likes.some(like => like.userId === req.user.id);
+    delete post.likes;
+  });
+
 
   res.status(200).json({ posts });
 });
@@ -63,9 +74,17 @@ exports.getPost = asyncHandler(async (req, res) => {
         orderBy: {
           createdAt: 'desc',
         }
+      },
+      likes: {
+        select: {
+          userId: true,
+        }
       }
     }
   });
+
+  post.isLiked = post.likes.some(like => like.userId === req.user.id);
+  delete post.likes;
 
   res.status(200).json({ post });
 });

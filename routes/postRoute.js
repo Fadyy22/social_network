@@ -26,11 +26,11 @@ router.use('/:postId/comments', commentRouter);
 router
   .route('/')
   .post(isAuth, createPostValidator, createPost)
-  .get(getAllPosts);
+  .get(isAuth, getAllPosts);
 
 router
   .route('/:id')
-  .get(getPost)
+  .get(isAuth, getPost)
   .patch(isAuth, updatePostValidator, updatePost)
   .delete(isAuth, deletePostValidator, deletePost);
 
