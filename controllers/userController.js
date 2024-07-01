@@ -19,3 +19,47 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
 
   res.status(200).json({ user });
 });
+
+exports.addFriend = asyncHandler(async (req, res) => {
+  await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      friendRequests: {
+        connect: {
+          id: req.params.id,
+        }
+      }
+    }
+  });
+
+  res.status(201).json({ message: "Request sent" });
+});
+
+exports.acceptFriendRequest = asyncHandler(async (req, res) => {
+  await prisma.user.update({
+    where: {
+      id: req.user.id
+    },
+    data: {
+      friendRequestsOf: {
+        disconnect: {
+          id: req.params.id
+        }
+      },
+      friends: {
+        connect: {
+          id: req.params.id
+        }
+      },
+      friendOf: {
+        connect: {
+          id: req.params.id,
+        }
+      }
+    }
+  });
+
+  res.status(201).json({ message: "Friend added" });
+});
