@@ -21,7 +21,7 @@ exports.createCommentValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };
@@ -48,7 +48,7 @@ exports.deleteCommentValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };
@@ -67,9 +67,16 @@ exports.deleteCommentValidator = [
       });
 
       if (!comment) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Comment not found',
+        };
+      }
+
+      if (comment.userId !== req.user.id) {
+        return req.customError = {
+          statusCode: 403,
+          message: 'Unauthorized',
         };
       }
     }),

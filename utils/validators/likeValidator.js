@@ -21,7 +21,7 @@ exports.likePostValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };
@@ -44,7 +44,7 @@ exports.unlikePostValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };

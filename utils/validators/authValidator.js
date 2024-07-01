@@ -41,7 +41,7 @@ exports.signupValidator = [
       });
 
       if (user) {
-        req.customError = {
+        return req.customError = {
           message: 'Email is already taken',
           statusCode: 409,
         };
@@ -77,7 +77,7 @@ exports.loginValidator = [
       });
 
       if (!user) {
-        req.customError = {
+        return req.customError = {
           message: 'Invalid email or password',
           statusCode: 401,
         };
@@ -85,7 +85,7 @@ exports.loginValidator = [
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-          req.customError = {
+          return req.customError = {
             message: 'Invalid email or password',
             statusCode: 401,
           };

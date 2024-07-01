@@ -29,12 +29,14 @@ exports.updatePostValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };
-      } else if (post.authorId !== req.user.id) {
-        req.customError = {
+      }
+
+      if (post.authorId !== req.user.id) {
+        return req.customError = {
           statusCode: 403,
           message: 'Unauthorized',
         };
@@ -61,12 +63,14 @@ exports.deletePostValidator = [
       });
 
       if (!post) {
-        req.customError = {
+        return req.customError = {
           statusCode: 404,
           message: 'Post not found',
         };
-      } else if (post.authorId !== req.user.id) {
-        req.customError = {
+      }
+
+      if (post.authorId !== req.user.id) {
+        return req.customError = {
           statusCode: 403,
           message: 'Unauthorized',
         };
