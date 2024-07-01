@@ -29,10 +29,6 @@ exports.getAllPosts = asyncHandler(async (_req, res) => {
     }
   });
 
-  posts.forEach(post => {
-    delete post.authorId;
-  });
-
   res.status(200).json({ posts });
 });
 
@@ -70,8 +66,6 @@ exports.getPost = asyncHandler(async (req, res) => {
       }
     }
   });
-
-  delete post.authorId;
 
   res.status(200).json({ post });
 });
