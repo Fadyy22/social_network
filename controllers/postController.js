@@ -23,6 +23,9 @@ exports.getAllPosts = asyncHandler(async (_req, res) => {
           lastName: true,
         }
       }
+    },
+    orderBy: {
+      createdAt: 'desc',
     }
   });
 
