@@ -45,7 +45,6 @@ exports.updatePostValidator = [
     .isLength({ min: 1, max: 500 })
     .withMessage('Content must be between 1 and 500 characters'),
   checkExact([], 'Unknown fields'),
-
   globalValidatorMiddleware,
 ];
 
