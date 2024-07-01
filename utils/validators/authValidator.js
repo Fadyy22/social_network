@@ -1,5 +1,5 @@
-const { check, checkExact } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const { check, checkExact } = require('express-validator');
 const { PrismaClient } = require('@prisma/client');
 
 const {
