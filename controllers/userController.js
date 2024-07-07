@@ -1,7 +1,53 @@
+const fs = require('fs');
+
 const asyncHandler = require('express-async-handler');
+const cloudinary = require('../utils/cloudinary');
+const multer = require('multer');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
+
+const multerStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/profile_images');
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.split('/')[1];
+    const fileName = `profile-${req.user.id}-${Date.now()}.${ext}`;
+    cb(null, fileName);
+  }
+});
+
+const uploadProfileImage = async (image, res) => {
+  try {
+    const { secure_url } = await cloudinary.uploader.upload(image.path);
+    fs.unlinkSync(image.path);
+    return secure_url;
+  } catch (error) {
+    fs.unlinkSync(image.path);
+    return res.status(500).json({ message: "Error uploading image" });
+  }
+};
+
+exports.parseProfileImage = multer({ storage: multerStorage }).single('profile_img');
+
+exports.createProfileImage = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "Please upload an image" });
+  }
+  const image = await uploadProfileImage(req.file, res);
+  const user = await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      profile_img: image,
+    }
+  });
+
+  res.status(200).json({ user });
+});
+
 
 exports.getUserProfile = asyncHandler(async (req, res) => {
   const user = await prisma.user.findUnique({

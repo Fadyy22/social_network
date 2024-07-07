@@ -10,6 +10,7 @@
      - [Sign Up](#sign-up)
      - [Login](#login)
    - [Users](#users)
+     - [Uploading Profile Image](#uploading-profile-image)
      - [Get Profile](#get-profile)
      - [Add Friend](#add-friend)
      - [Accept Friend Request](#accept-friend-request)
@@ -131,6 +132,35 @@
 ---
 
 ### Users
+
+#### Uploading Profile Image
+
+- **URL:** `/users/profile-img`
+
+- **Method:** `PATCH`
+
+- **Request Body:** Form Data
+
+  ```json
+    {
+        "profile_img": File
+    }
+  ```
+
+- **Response:**
+
+  ```json
+    {
+        "user": {
+            "id": String,
+            "firstName": String,
+            "lastName": String,
+            "email": String,
+            "profile_img": String,
+            "createdAt": String (Date)
+        }
+    }
+  ```
 
 #### Get Profile
 

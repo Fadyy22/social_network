@@ -1,6 +1,8 @@
 const express = require('express');
 
 const {
+  parseProfileImage,
+  createProfileImage,
   getUserProfile,
   addFriend,
   acceptFriendRequest,
@@ -14,6 +16,8 @@ const {
 const isAuth = require('../middlewares/authMiddleware');
 
 const router = express.Router();
+
+router.patch('/profile-img', isAuth, parseProfileImage, createProfileImage);
 
 router
   .route('/:id')
