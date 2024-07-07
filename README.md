@@ -56,6 +56,10 @@
     JWT_SECRET_KEY=
     JWT_EXPIRATION=
 
+   # CLOUDINARY
+   CLOUDINARY_NAME=dnuouhscg
+   CLOUDINARY_API_KEY=273413362486614
+   CLOUDINARY_API_SECRET=1loGwRxGG1i9oxoDYBy8jgZhXe8
    ```
 
 5. Start the server
@@ -71,14 +75,14 @@
 - **Method:** `POST`
 - **Request Body:**
 
-  ```json
-    {
-        "firstName": String,
-        "lastName": String,
-        "email": String,
-        "password": String
-    }
-  ```
+```json
+ {
+     "firstName": String,
+     "lastName": String,
+     "email": String,
+     "password": String
+ }
+```
 
 - **Response:**
 
