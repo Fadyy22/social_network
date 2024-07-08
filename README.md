@@ -37,30 +37,14 @@
 
 1. Clone the repo
    `git clone https://github.com/Fadyy22/alx-career-craft.git`
+
 2. Navigate to the project directory
    `cd alx-career-craft`
+
 3. Install dependencies
    `npm install`
-4. Create a `.env` file in the root directory and add the following environment variables:
-   `Contact for the .env file or create your own and add the following:`
 
-   ```env
-    # Server
-    HOST=
-    PORT=
-
-    # Database
-    DATABASE_URL=
-
-    # JWT
-    JWT_SECRET_KEY=
-    JWT_EXPIRATION=
-
-   # CLOUDINARY
-   CLOUDINARY_NAME=
-   CLOUDINARY_API_KEY=
-   CLOUDINARY_API_SECRET=
-   ```
+4. Create a `.env` file in the root directory and add your environment variables like .env.example
 
 5. Start the server
    `npm start`
