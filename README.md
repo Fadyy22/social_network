@@ -127,6 +127,8 @@
 
 - **Method:** `PATCH`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Request Body:** Form Data
 
   ```json
@@ -156,6 +158,8 @@
 
 - **Method:** `GET`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Response:**
 
   ```json
@@ -177,6 +181,8 @@
 
 - **Method:** `POST`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Response:**
 
   ```json
@@ -190,6 +196,8 @@
 - **URL:** `/users/:id/accept`
 
 - **Method:** `POST`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Response:**
 
@@ -208,6 +216,8 @@
 - **URL:** `/posts`
 
 - **Method:** `POST`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Request Body:**
 
@@ -238,6 +248,8 @@
 
 - **Method:** `GET`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Response:**
 
   ```json
@@ -267,6 +279,8 @@
 - **URL:** `/posts/:id`
 
 - **Method:** `GET`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Response:**
 
@@ -309,6 +323,8 @@
 
 - **Method:** `PATCH`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Request Body:**
 
   ```json
@@ -344,6 +360,8 @@
 
 - **Method:** `DELETE`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Response:** 204 No Content
 
 ---
@@ -355,6 +373,8 @@
 - **URL:** `/posts/:id/like`
 
 - **Method:** `POST`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Response:**
 
@@ -370,6 +390,8 @@
 
 - **Method:** `DELETE`
 
+- **Request Headers:** `Authorization: Bearer <token>`
+
 - **Response:** 204 No Content
 
 ---
@@ -381,6 +403,8 @@
 - **URL:** `/posts/:id/comments`
 
 - **Method:** `POST`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Request Body:**
 
@@ -409,5 +433,7 @@
 - **URL:** `/posts/:postId/comments/:commentId`
 
 - **Method:** `DELETE`
+
+- **Request Headers:** `Authorization: Bearer <token>`
 
 - **Response:** 204 No Content
