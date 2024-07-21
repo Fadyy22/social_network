@@ -1,6 +1,6 @@
-const authRouter = require('./authRoute');
-const postRouter = require('./postRoute');
-const userRouter = require('./userRoute');
+import authRouter from './authRoute.js';
+import postRouter from './postRoute.js';
+import userRouter from './userRoute.js';
 
 const mountRoutes = (app) => {
   app.use('/auth', authRouter);
@@ -8,4 +8,4 @@ const mountRoutes = (app) => {
   app.use('/users', userRouter);
 };
 
-module.exports = mountRoutes;
+export default mountRoutes;

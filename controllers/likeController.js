@@ -1,9 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-exports.likePost = asyncHandler(async (req, res) => {
+export const likePost = asyncHandler(async (req, res) => {
   await prisma.like.create({
     data: {
       userId: req.user.id,
@@ -25,7 +25,7 @@ exports.likePost = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'Post liked' });
 });
 
-exports.unlikePost = asyncHandler(async (req, res) => {
+export const unlikePost = asyncHandler(async (req, res) => {
   await prisma.like.delete({
     where: {
       postId_userId: {

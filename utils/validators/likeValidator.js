@@ -1,14 +1,14 @@
-const { check } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+import { check } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
 
-const {
+import {
   customValidatorMiddleware,
   globalValidatorMiddleware,
-} = require('../../middlewares/validatorMiddleware');
+} from '../../middlewares/validatorMiddleware.js';
 
 const prisma = new PrismaClient();
 
-exports.likePostValidator = [
+export const likePostValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')
@@ -31,7 +31,7 @@ exports.likePostValidator = [
   globalValidatorMiddleware,
 ];
 
-exports.unlikePostValidator = [
+export const unlikePostValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')

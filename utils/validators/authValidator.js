@@ -1,15 +1,15 @@
-const bcrypt = require('bcryptjs');
-const { check, checkExact } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+import bcrypt from 'bcryptjs';
+import { check, checkExact } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
 
-const {
+import {
   customValidatorMiddleware,
   globalValidatorMiddleware,
-} = require('../../middlewares/validatorMiddleware');
+} from '../../middlewares/validatorMiddleware.js';
 
 const prisma = new PrismaClient();
 
-exports.signupValidator = [
+export const signupValidator = [
   check('firstName')
     .trim()
     .notEmpty()
@@ -57,7 +57,7 @@ exports.signupValidator = [
   globalValidatorMiddleware,
 ];
 
-exports.loginValidator = [
+export const loginValidator = [
   check('email')
     .trim()
     .notEmpty()

@@ -1,14 +1,15 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const asyncHandler = require('express-async-handler');
-const cloudinary = require('../utils/cloudinary');
-const multer = require('multer');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import multer from 'multer';
+import { PrismaClient } from '@prisma/client';
+
+import cloudinary from '../utils/cloudinary.js';
 
 const prisma = new PrismaClient();
 
 const multerStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req, _file, cb) {
     cb(null, 'uploads/profile_images');
   },
   filename: function (req, file, cb) {
@@ -29,9 +30,9 @@ const uploadProfileImage = async (image, res) => {
   }
 };
 
-exports.parseProfileImage = multer({ storage: multerStorage }).single('profile_img');
+export const parseProfileImage = multer({ storage: multerStorage }).single('profile_img');
 
-exports.createProfileImage = asyncHandler(async (req, res) => {
+export const createProfileImage = asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "Please upload an image" });
   }
@@ -49,7 +50,7 @@ exports.createProfileImage = asyncHandler(async (req, res) => {
 });
 
 
-exports.getUserProfile = asyncHandler(async (req, res) => {
+export const getUserProfile = asyncHandler(async (req, res) => {
   const user = await prisma.user.findUnique({
     where: {
       id: req.params.id,
@@ -73,16 +74,19 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
     }
   });
 
-  user.isFriend = user.friends.some(friend => friend.id === req.user.id);
-  user.isRequested = user.friendRequestsOf.some(request => request.id === req.user.id);
+  if (user) {
+    user.isFriend = user.friends.some(friend => friend.id === req.user.id);
+    user.isRequested = user.friendRequestsOf.some(request => request.id === req.user.id);
 
-  delete user.friends;
-  delete user.friendRequestsOf;
+    delete user.friends;
+    delete user.friendRequestsOf;
+  }
+
 
   res.status(200).json({ user });
 });
 
-exports.addFriend = asyncHandler(async (req, res) => {
+export const addFriend = asyncHandler(async (req, res) => {
   await prisma.user.update({
     where: {
       id: req.user.id,
@@ -99,7 +103,7 @@ exports.addFriend = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Request sent" });
 });
 
-exports.acceptFriendRequest = asyncHandler(async (req, res) => {
+export const acceptFriendRequest = asyncHandler(async (req, res) => {
   await prisma.user.update({
     where: {
       id: req.user.id

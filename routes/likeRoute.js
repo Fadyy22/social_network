@@ -1,16 +1,16 @@
-const {
+import {
   likePost,
   unlikePost,
-} = require('../controllers/likeController');
+} from '../controllers/likeController.js';
 
-const {
+import {
   likePostValidator,
   unlikePostValidator,
-} = require('../utils/validators/likeValidator');
+} from '../utils/validators/likeValidator.js';
 
 const likeRouter = {
   like: [likePostValidator, likePost],
   unlike: [unlikePostValidator, unlikePost],
 };
 
-module.exports = likeRouter;
+export default likeRouter;

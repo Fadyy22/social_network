@@ -1,8 +1,8 @@
-const cors = require('cors');
-const dotenv = require('dotenv');
-const express = require('express');
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 
-const mountRoutes = require('./routes');
+import mountRoutes from './routes/index.js';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ app.use('*', (req, res) => {
   });
 });
 
-app.use((error, req, res, next) => {
+app.use((error, _req, res, _next) => {
   error.statusCode = error.statusCode || 500;
   res.status(error.statusCode).json({
     message: error.message,

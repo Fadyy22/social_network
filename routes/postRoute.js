@@ -1,23 +1,23 @@
-const express = require('express');
+import express from 'express';
 
-const {
+import {
   createPost,
   getAllPosts,
   getPost,
   updatePost,
   deletePost,
-} = require('../controllers/postController');
+} from '../controllers/postController.js';
 
-const {
+import {
   createPostValidator,
   updatePostValidator,
   deletePostValidator,
-} = require('../utils/validators/postValidator');
+} from '../utils/validators/postValidator.js';
 
-const commentRouter = require('./commentRoute');
-const likeRouter = require('./likeRoute');
+import commentRouter from './commentRoute.js';
+import likeRouter from './likeRoute.js';
 
-const isAuth = require('../middlewares/authMiddleware');
+import isAuth from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -34,8 +34,7 @@ router
   .patch(isAuth, updatePostValidator, updatePost)
   .delete(isAuth, deletePostValidator, deletePost);
 
-
 router.post('/:id/like', isAuth, likeRouter.like);
 router.delete('/:id/unlike', isAuth, likeRouter.unlike);
 
-module.exports = router;
+export default router;

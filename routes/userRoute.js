@@ -1,19 +1,19 @@
-const express = require('express');
+import express from 'express';
 
-const {
+import {
   parseProfileImage,
   createProfileImage,
   getUserProfile,
   addFriend,
   acceptFriendRequest,
-} = require('../controllers/userController');
+} from '../controllers/userController.js';
 
-const {
+import {
   addFriendValidator,
   acceptFriendRequestValidator,
-} = require('../utils/validators/userValidator');
+} from '../utils/validators/userValidator.js';
 
-const isAuth = require('../middlewares/authMiddleware');
+import isAuth from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -26,4 +26,4 @@ router
 router.post('/:id/add', isAuth, addFriendValidator, addFriend);
 router.post('/:id/accept', isAuth, acceptFriendRequestValidator, acceptFriendRequest);
 
-module.exports = router;
+export default router;

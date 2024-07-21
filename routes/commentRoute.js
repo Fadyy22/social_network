@@ -1,17 +1,16 @@
-const express = require('express');
+import express from 'express';
 
-const {
+import {
   createComment,
   deleteComment,
-} = require('../controllers/commentController');
+} from '../controllers/commentController.js';
 
-
-const {
+import {
   createCommentValidator,
   deleteCommentValidator,
-} = require('../utils/validators/commentValidator');
+} from '../utils/validators/commentValidator.js';
 
-const isAuth = require('../middlewares/authMiddleware');
+import isAuth from '../middlewares/authMiddleware.js';
 
 const router = express.Router({ mergeParams: true });
 
@@ -23,4 +22,4 @@ router
   .route('/:id')
   .delete(isAuth, deleteCommentValidator, deleteComment);
 
-module.exports = router;
+export default router;

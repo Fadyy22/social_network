@@ -1,10 +1,11 @@
-const asyncHandler = require('express-async-handler');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import { PrismaClient } from '@prisma/client';
 
-const createToken = require('../utils/createToken');
+import createToken from '../utils/createToken.js';
+
 const prisma = new PrismaClient();
 
-exports.signup = asyncHandler(async (req, res) => {
+export const signup = asyncHandler(async (req, res) => {
   const user = await prisma.user.create({
     data: req.body,
   });
@@ -14,7 +15,7 @@ exports.signup = asyncHandler(async (req, res) => {
   res.status(201).json({ user, token });
 });
 
-exports.login = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req, res) => {
   const token = createToken(req.user.id);
   res.status(200).json({ user: req.user, token });
 });

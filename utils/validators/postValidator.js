@@ -1,14 +1,14 @@
-const { check, checkExact } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+import { check, checkExact } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
 
-const {
+import {
   customValidatorMiddleware,
   globalValidatorMiddleware,
-} = require('../../middlewares/validatorMiddleware');
+} from '../../middlewares/validatorMiddleware.js';
 
 const prisma = new PrismaClient();
 
-exports.createPostValidator = [
+export const createPostValidator = [
   check('content')
     .isLength({ min: 1, max: 500 })
     .withMessage('Content must be between 1 and 500 characters'),
@@ -16,7 +16,7 @@ exports.createPostValidator = [
   globalValidatorMiddleware,
 ];
 
-exports.updatePostValidator = [
+export const updatePostValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')
@@ -50,7 +50,7 @@ exports.updatePostValidator = [
   globalValidatorMiddleware,
 ];
 
-exports.deletePostValidator = [
+export const deletePostValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')

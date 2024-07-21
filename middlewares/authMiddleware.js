@@ -1,8 +1,8 @@
-const asyncHandler = require('express-async-handler');
-const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
 
-const ApiError = require('../utils/apiError');
+import ApiError from '../utils/apiError.js';
 
 const prisma = new PrismaClient();
 
@@ -34,4 +34,4 @@ const isAuth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-module.exports = isAuth;
+export default isAuth;

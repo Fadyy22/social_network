@@ -1,14 +1,14 @@
-const { check } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+import { check, checkExact } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
 
-const {
+import {
   customValidatorMiddleware,
   globalValidatorMiddleware,
-} = require('../../middlewares/validatorMiddleware');
+} from '../../middlewares/validatorMiddleware.js';
 
 const prisma = new PrismaClient();
 
-exports.addFriendValidator = [
+export const addFriendValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')
@@ -65,7 +65,7 @@ exports.addFriendValidator = [
   globalValidatorMiddleware,
 ];
 
-exports.acceptFriendRequestValidator = [
+export const acceptFriendRequestValidator = [
   check('id')
     .isString()
     .withMessage('Id must be a string')

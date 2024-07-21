@@ -1,9 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-exports.createComment = asyncHandler(async (req, res) => {
+export const createComment = asyncHandler(async (req, res) => {
   const comment = await prisma.comment.create({
     data: {
       userId: req.user.id,
@@ -26,7 +26,7 @@ exports.createComment = asyncHandler(async (req, res) => {
   res.status(201).json({ comment });
 });
 
-exports.deleteComment = asyncHandler(async (req, res) => {
+export const deleteComment = asyncHandler(async (req, res) => {
   await prisma.comment.delete({
     where: {
       id: req.params.id,

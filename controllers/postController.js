@@ -1,9 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const { PrismaClient } = require('@prisma/client');
+import asyncHandler from 'express-async-handler';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-exports.createPost = asyncHandler(async (req, res) => {
+export const createPost = asyncHandler(async (req, res) => {
   req.body.authorId = req.user.id;
   const post = await prisma.post.create({
     data: req.body,
@@ -12,7 +12,7 @@ exports.createPost = asyncHandler(async (req, res) => {
   res.status(201).json({ post });
 });
 
-exports.getAllPosts = asyncHandler(async (req, res) => {
+export const getAllPosts = asyncHandler(async (req, res) => {
   const posts = await prisma.post.findMany({
     include: {
       author: {
@@ -43,7 +43,7 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
   res.status(200).json({ posts });
 });
 
-exports.getPost = asyncHandler(async (req, res) => {
+export const getPost = asyncHandler(async (req, res) => {
   const post = await prisma.post.findUnique({
     where: {
       id: req.params.id,
@@ -89,7 +89,7 @@ exports.getPost = asyncHandler(async (req, res) => {
   res.status(200).json({ post });
 });
 
-exports.updatePost = asyncHandler(async (req, res) => {
+export const updatePost = asyncHandler(async (req, res) => {
   const post = await prisma.post.update({
     where: {
       id: req.params.id,
@@ -112,7 +112,7 @@ exports.updatePost = asyncHandler(async (req, res) => {
   res.status(200).json({ post });
 });
 
-exports.deletePost = asyncHandler(async (req, res) => {
+export const deletePost = asyncHandler(async (req, res) => {
   await prisma.post.delete({
     where: {
       id: req.params.id,
